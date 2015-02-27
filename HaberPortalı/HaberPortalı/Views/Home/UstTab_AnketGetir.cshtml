@@ -1,0 +1,25 @@
+﻿    @{
+    Layout = null;
+    
+}
+@model HaberPortalı.Models.Anket
+<aside id="block_poll" class="content"> 
+    <form action="/Home/OyVer/@Model.Id" method="post">
+        <h3>
+           @Model.Adi
+            
+        </h3>
+        <div id="edit-choice">
+            @foreach (var item in Model.AnketSeceneks)
+            {
+                <div class="form-item">
+                    <input type="radio" value="@item.Id" name="choice" id="edit-choice-@item.Sira" checked />
+                    <label for="edit-choice-@item.Sira">@item.Metin</label>
+                </div>
+            }         
+        </div>
+
+        <button type="submit"><span class="view_all"><span><span>Oy ver</span></span></span></button>
+     
+    </form>
+</aside>

@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Goster";
+}
+@model HaberPortalı.Models.Haber
+
+@helper BegeniDurumu(HaberPortalı.Models.Yorum yorum) { 
+    
+    if((yorum.Begeni-yorum.Tiksinti)>=0){
+        <span class="positive">+@{Write(yorum.Begeni - yorum.Tiksinti);}</span>
+    }
+    else{
+        <span class="negative">@{Write(yorum.Begeni-yorum.Tiksinti);}</span>
+    }
+}
+<div id="container">
+    <div class="wrapper">
+        <div id="page">
+            <!-- content -->
+            <div id="content">
+                <div class="region">
+                    <article class="node">
+                        <h2 class="title">@Model.Baslik</h2>
+                        <div class="content block">
+                            <p class="date date_main">
+                                <time datetime="@Model.Yayim_Tarihi.ToShortDateString()">@Model.Yayim_Tarihi.ToString("dd MMMM yyyy HH:mm")</time>
+                                <span class="author"> Yazar<a href="#">@Model.Kullanıcı.Yazar.Adi @Model.Kullanıcı.Yazar.Soyadi</a></span><span class="comments_count"><a href="#"> @Model.Yorums.Count</a></span> <span class="email_print_pdf"><a href="#" class="email"></a><a href="#" class="print"></a><a href="#" class="pdf"></a></span>
+                            </p>
+                            <!-- AddThis Button BEGIN -->
+                            <div class="addthis_toolbox addthis_default_style "> <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> <a class="addthis_counter addthis_pill_style"></a> </div>
+                            <script type="text/javascript" src="../../s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f3c188f442f3bf2"></script>
+                            <!-- AddThis Button END -->
+                            <section class="content">
+                                <p>
+                                    <img src="@Model.Resimyol" alt="@Model.Baslik" class="align_left" />@Model.Ozet<br />
+                                    <br>
+                                  <p>
+                                      @Model.Icerik
+                                  </p>
+                                
+
+                                 <p class="tags">Etikeler:
+                                @foreach (var item in @Model.Etikets)
+                                {
+                                    <a href="/Etiket/Listele/@item.Adi/@item.Id">@item.Adi</a>
+                                }
+                                                        
+                            </section>
+                            <!-- AddThis Button BEGIN -->
+                            <div class="addthis_toolbox addthis_default_style " style="margin-bottom:12px;"> <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_google_plusone" g:plusone:size="medium"></a> <a class="addthis_counter addthis_pill_style"></a> <span class="email_print_pdf"><a href="#" class="email"></a><a href="#" class="print"></a><a href="#" class="pdf"></a></span></div>
+                            <script type="text/javascript" src="../../s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f3c188f442f3bf2"></script>
+                            <!-- AddThis Button END -->
+                            <p><a href="#comment_form" class="view_all"><span><span>Yorum Yapın</span></span></a><span class="previous_next"><a href="#">previous article</a><a href="#" class="next">next article</a></span></p>
+                           
+                            <section id="comments">
+                                <h3 class="block_title">@Model.Yorums.Count Yorum</h3>
+                                <ul>
+                                    @foreach (var item in Model.Yorums)
+                                    {
+                                    <li>
+                                        <div class="details">
+                                            <div class="photo"><a href="#"><img src="images/bg_user.png" alt="Photo" /></a></div>
+                                            <div class="name">
+                                                <h4 class="title"><a href="#">@item.Ad_Soyad</a></h4>
+                                                <p class="date">
+                                                    <time datetime="@item.Tarih.ToShortDateString()">@item.Tarih.ToString("dd MMMM yyyy HH:mm")</time>
+                                                </p>
+                                            </div>
+                                            <div class="rate"> <a href="javascript:void(0)" id="CommentRateUp" class="rate_up"></a>@BegeniDurumu(item)<a href="javascript:void(0)" id="CommentRateDown" class="rate_down"></a> </div>
+                                            <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+                                            <script src="~/Scripts/BegeniTiksinti.js"></script>
+
+                                        </div>
+                                        <div class="content">
+                                            <p>@item.Icerik</p>
+                                        </div>
+                                        <p class="reply"><a href="#" class="view_all"><span><span>reply</span></span></a></p>
+                                    </li>
+                                    }                              
+                                </ul>
+                            </section>
+                            <div id="comment_form">
+                                <h3 class="block_title">Yorum Yaz</h3>
+                                <p></p>
+                                <form action="/Haber/YorumYap" method="post">
+                                    <input type="hidden" name="HaberId"value="@Model.Id" />
+                                           <div class="form-item">
+                                        <label for="edit-submitted-name">Ad Soyad:</label>
+                                        <input type="text" class="form-text" value="" size="60" id="edit-submitted-name" name="txtAdSoyad" maxlength="128" required />
+                                        <span title="Boş Geçilmez." class="form-required">(Gerekli)</span>
+                                    </div>
+                                    <div class="form-item">
+                                        <label for="edit-submitted-email">Email:</label>
+                                        <input type="email" class="form-text" value="" size="60" id="edit-submitted-email" name="txtEmail" maxlength="128" required />
+                                        <span title="Boş Geçilmez." class="form-required">(Gerekli)</span>
+                                    </div>                           
+                                    <div class="form-item">
+                                        <label for="edit-submitted-message">Yorum Yaz: </label>
+                                        <textarea class="form-textarea" id="edit-submitted-message" name="txtIcerik" rows="5" cols="60"></textarea>
+                                    </div>
+                                    <div id="edit-actions">
+                                        <button type="submit"><span class="view_all_medium"><span><span>Yorum Gönder</span></span></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                    <span id="change_font_size"> <a href="#" class="font_size_down">A-</a> <a href="#" class="font_size_normal">A</a> <a href="#" class="font_size_up">A+</a></span>
+                </div>
+            </div>
+            <!-- end content -->
+        </div>
+ </div>
+    </div>

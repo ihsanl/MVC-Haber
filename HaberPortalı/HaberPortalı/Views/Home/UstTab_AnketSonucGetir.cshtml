@@ -1,0 +1,48 @@
+﻿@model HaberPortalı.Models.Anket
+@{
+    Layout = null;
+}
+
+<style>
+.yuzde{
+    width:100%;
+    height:10px;
+    position:relative;
+}
+.oran{
+    height:10%;
+    position:relative;
+     background-color:fuchsia;
+     height:100%;
+}
+
+
+</style>
+@helper orangetir(int id)
+{
+    var oran = 100 * Model.AnketSeceneks.FirstOrDefault(x => x.Id == id).Oysayisi / Model.Katilimcisayisi;
+    Write(oran);
+
+}
+<aside id="block_poll" class="content">
+<form action="/Home/OyVer/@Model.Id" method="post">
+    <h3>
+        @Model.Adi
+
+    </h3>
+    <div id="edit-choice">
+        @foreach (var item in Model.AnketSeceneks)
+        {
+            <div class="form-item">
+              <div class="yuzde">
+                  <label for="edit-choice-@item.Sira">@item.Metin (%@orangetir(item.Id))</label>
+                  <div class="oran" style="width:@orangetir(item.Id)%">&nbsp;</div>
+              </div>
+                &nbsp;&nbsp;
+
+               
+            </div>
+        }
+    </div>
+</form>
+</aside>

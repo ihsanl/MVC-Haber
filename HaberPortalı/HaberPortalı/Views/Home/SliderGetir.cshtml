@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model IEnumerable<HaberPortalı.Models.Haber>
+@helper BaslikBelirle(string Baslik) { 
+    
+    if(Baslik.Length>15){
+        <marquee>@Baslik</marquee>}
+    else { 
+@Baslik
+    }
+    }
+<aside id="block_front_slider" class="block">
+    <div class="content ad-gallery">
+        <div class="ad-image-wrapper"></div>
+        <div class="ad-controls"></div>
+        <div class="ad-nav">
+            <div class="ad-thumbs">
+                <ul class="ad-thumb-list">
+                    @foreach (var haber in Model)
+                    {
+                  <li>
+                    <a href="@haber.Resimyol"><img src="@haber.Kucukresimyol" title="@BaslikBelirle(haber.Baslik)" alt="@haber.Ozet.Substring(0,45)" /></a>
+                  </li>
+                    }
+                   </ul>
+            </div>
+        </div>
+    </div>
+</aside>

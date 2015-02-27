@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+@model IEnumerable<HaberPortalı.Models.Haber>
+
+<section id="block_editors_choice" class="block">
+    <h3 class="block_title">Editorün seçtikleri</h3>
+    <div class="content">
+        <ul>
+            @foreach (var item in @Model)
+            {
+                <li>
+                    <div class="editors_inner2">
+                        <article class="editors_inner">
+                            <div class="editors_left"><img src="@item.Kucukresimyol"  width="120px" alt="@item.Ozet" /></div>
+                            <div class="editors_right">
+                                <h4 class="title"><a href="/Galeri/GaleriGoster/@item.Baslik/@item.Id">@item.Baslik</a></h4>
+                                <p class="date">
+                                    <time datetime="@item.Yayim_Tarihi.ToShortDateString()">@item.Yayim_Tarihi.ToString("dd MMMM yyyy")</time>
+                                    <span class="comments_count"><a href="#">@item.Yorums.Count</a></span>
+                                </p>
+                                <p>
+                                @if (item.Ozet.Length > 50)
+                                {
+                                    @item.Ozet.Substring(0, 50)
+                                }
+                                else
+                                {
+                                    @item.Ozet;
+                                }                               
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </li>
+            }
+           
+             
+           
+        </ul>
+    </div>
+</section>
