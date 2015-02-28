@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Yeni İlan";
+    var _tipler = new MvcEmlak.Models.Entities().Tipler;
+    var _şehirler = new MvcEmlak.Models.Entities().Şehirler.OrderBy(p => p.İsim);
+    bool TipChecked = true;
+}
+
+<h2>Yeni İlan</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+
+    @Html.Partial("EmlakKategori")
+    
+    <div class="formField">
+        @foreach (var item in _tipler)
+        {
+            <label>
+                <input type="radio" name="Tip" value="@item.Id" @(TipChecked ? "checked" : "") />@item.Ad</label><br />
+            TipChecked = false;
+        }
+
+    </div>
+    
+    <div class="formField">
+        <label for="Başlık">Başlık</label><br />
+        <input type="text" name="Başlık" value="" placeholder="İlan başlığını yazınız..." style="width: 400px;" />
+    </div>
+    
+    <div class="formField">
+        <label for="Fiyat">Fiyat</label><br />
+        <input type="text" name="Fiyat" value="" style="width: 120px; text-align: right;" />
+    </div>
+    
+    <div class="formField">
+        <label for="Adres">Adres</label><br />
+        <textarea name="Adres" style="width: 400px;" rows="3"></textarea>
+    </div>
+    
+    <div class="formField">
+        <label for="Şehir">Şehir</label><br />
+        <select name="Şehir">
+            @foreach (var item in _şehirler)
+            {
+                <option value="@item.Id">@item.İsim</option>
+            }
+        </select>
+    </div>
+    
+    <div class="formField">
+        <label for="Görsel">Görsel</label><br />
+        <input type="file" name="Görsel" value="" />
+    </div>
+    
+    <div id="konutDetay" class="detayPanel">
+        <div class="formField">
+            <label for="KonutMetrekare">Metrekare</label><br />
+            <input type="text" name="KonutMetrekare" value="" style="width: 120px; text-align: right;" />
+        </div>
+        <div class="formField">
+            <label for="OdaBilgisi">Oda</label><br />
+            <select name="OdaBilgisi">
+                <option>1+1</option>
+                <option>2+1</option>
+                <option>3+1</option>
+                <option>4+1</option>
+            </select>
+        </div>
+        <div class="formField">
+            <label for="Kat">Kat:</label><br />
+            <input type="text" name="KatBilgisi" value="" style="width: 120px;" />
+        </div>
+        <div class="formField">
+            <label for="IsıtmaSistemi">Isıtma Sistemi</label><br />
+            <select name="IsıtmaSistemi">
+                <option>Yok</option>
+                <option>Kömür</option>
+                <option>Doğalgaz</option>
+                <option>Kombili</option>
+            </select>
+        </div>
+    </div>
+    <div id="dukkanDetay" class="detayPanel" style="display: none;">
+        <div class="formField">
+            <label for="DükkanMetrekare">Metrekare</label><br />
+            <input type="text" name="DükkanMetrekare" value="" style="width: 120px; text-align: right;" />
+        </div>
+        <div class="formField">
+            <label for="Depo">Depo</label><br />
+            <select name="Depo">
+                <option value="False">Yok</option>
+                <option value="True">Var</option>
+            </select>
+        </div>
+    </div>
+    <div id="arsaDetay" class="detayPanel" style="display: none;">
+        <div class="formField">
+            <label for="ArsaMetrekare">Metrekare</label><br />
+            <input type="text" name="ArsaMetrekare" value="" style="width: 120px; text-align: right;" />
+        </div>
+        <div class="formField">
+            <label for="İmarlı">İmar Durumu</label><br />
+            <select name="İmarlı">
+                <option value="False">Yok</option>
+                <option value="True">Var</option>
+            </select>
+        </div>
+    </div>
+    
+    @Html.ActionLink("İptal", "Posts", "Members")
+    <input type="submit" name="Submit" value="Kaydet" />
+    
+}
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#radiokonut').change(function () {
+                $('.detayPanel').slideUp('fast');
+                $('#konutDetay').slideDown('fast');
+            });
+            $('#radiodukkan').change(function () {
+                $('.detayPanel').slideUp('fast');
+                $('#dukkanDetay').slideDown('fast');
+            });
+            $('#radioarsa').change(function () {
+                $('.detayPanel').slideUp('fast');
+                $('#arsaDetay').slideDown('fast');
+            });
+
+        });
+    </script>
+}

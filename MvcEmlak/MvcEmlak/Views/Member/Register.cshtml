@@ -1,0 +1,83 @@
+﻿@using MvcEmlak.Models
+@model Üye
+@{
+    ViewBag.Title = "Yeni Üyelik";
+}
+
+<h2>Yeni Üyelik</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="formField">
+        @Html.LabelFor(p => p.İsim, "Ad Soyad")<br />
+        @Html.TextBoxFor(p => p.İsim, new { @class = "requiredField" })
+    </div>
+    <div class="formField">
+        @Html.LabelFor(p => p.EPosta, "E-Posta")<br />
+        @Html.TextBoxFor(p => p.EPosta, new { @class = "requiredField emailField" })
+        <img src="~/Content/Images/ajax-loader.gif" style="display: none;" id="preloader" />
+        <span id="emailValidate"></span>
+    </div>
+    <div class="formField">
+        @Html.LabelFor(p => p.Şifre, "Şifre")<br />
+        @Html.PasswordFor(p => p.Şifre, new { @class = "requiredField", @id = "password" })
+    </div>
+    <div class="formField">
+        @Html.LabelFor(p => p.Şifre, "Şifre Tekrar")<br />
+        <input type="password" name="PasswordValidate" value="" class="requiredField" id="passwordValidate" />
+    </div>
+    <div class="formField">
+        @Html.ActionLink("İptal", "Index", "Home")
+        <input type="submit" name="Submit" value="Kaydol" />
+    </div>
+}
+<div id="messagePanel"></div>
+@section scripts{
+    <link href="~/Scripts/Validation/validtaion.css" rel="stylesheet" />
+    <script src="~/Scripts/Validation/validation.js"></script>
+    <script>
+        $(function () {
+
+            $('#messagePanel').dialog({
+                autoOpen: false,
+                madal: true,
+                draggable: false,
+                resizable: false
+            });
+
+            var s = true;
+            $('.emailField').change(function () {
+                $('#preloader').fadeIn(300);
+                $.getJSON('@Url.Action("CheckEMail", "Member")/?EMail=' + $(this).val(), function (d) {
+                    $('#preloader').fadeOut(300);
+                    if (d.adet == "0") {
+                        $('#emailValidate').html('Kullanımda değil');
+                        s = true;
+                    } else {
+                        $('#emailValidate').html('Kullanımda');
+                        MessageBox("Uyarı", "Bu e-posta hesabı kullanımdadır!");
+                        s = false;
+                    }
+                });
+            });
+
+            $('form').submit(function () {
+
+                if ($('#password').val() != $('#passwordValidate').val()) {
+                    s = false;
+                    MessageBox("Uyarı", "Şifre ve Şifre Tekrar alanları aynı olmalıdır!");
+                }
+
+                return s;
+            });
+
+        });
+
+        function MessageBox(t, m) {
+            $('#messagePanel').attr("title", t);
+            $('#messagePanel').html(m);
+            $('#messagePanel').dialog("open");
+        }
+
+    </script>
+}

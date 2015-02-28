@@ -1,0 +1,13 @@
+﻿@using (Html.BeginForm("Login", "Member", new { @returnUrl = Request.Url.AbsoluteUri }))
+{
+    <div>
+        @Html.ActionLink("yeni üyelik", "Register", "Member")
+        |
+        @Html.ActionLink("şifremi yenile", "RenewPassword", "Member")
+        |
+        E-Posta:<input type="text" name="EPosta" value="" placeholder="E-Posta Adresiniz... " />
+        Şifre:<input type="password" name="Şifre" value="" />
+        <input type="submit" name="Submit" value="Giriş" />
+    </div>
+}
+

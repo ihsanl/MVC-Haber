@@ -1,0 +1,25 @@
+﻿@model MvcEmlak.Models.Üye
+@{
+    ViewBag.Title = "Şifre Yenileme";
+}
+
+<h2>Şifre Yenileme</h2>
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="Id" value="@ViewData["Id"]" />
+    <div class="formField">
+        @Html.LabelFor(p => p.Şifre, "Şifre")<br />
+        @Html.PasswordFor(p => p.Şifre, new { @class = "requiredField", @id = "password" })
+    </div>
+    <div class="formField">
+        @Html.LabelFor(p => p.Şifre, "Şifre Tekrar")<br />
+        <input type="password" name="PasswordValidate" value="" class="requiredField" id="passwordValidate" />
+    </div>
+    <input type="submit" name="Submit" value="Kaydol" />
+    
+}
+
+@section scripts{
+    <link href="~/Scripts/Validation/validtaion.css" rel="stylesheet" />
+    <script src="~/Scripts/Validation/validation.js"></script>
+}

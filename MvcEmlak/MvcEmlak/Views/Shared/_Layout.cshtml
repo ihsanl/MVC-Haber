@@ -1,0 +1,86 @@
+﻿@using MvcEmlak.Models
+@{
+    var _şehirler = new Entities().Şehirler.OrderBy(p => p.İsim).ToList();
+    var _tipler = new Entities().Tipler.ToList();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Monda:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="topPanelWrapper">
+        <div id="memberPanel">
+            @{
+                if (Session["member"] == null)
+                {
+                @Html.Partial("MemberLogin")
+                }
+                else
+                {
+                @Html.Partial("MemberView")
+                }
+            }
+        </div>
+        <div id="topPanel">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/Content/Images/logo.png" alt="" width="320" height="120" /></a>
+        </div>
+    </div>
+    <div id="mainPanel">
+        <table style="width: 100%; border-spacing: 4px;">
+            <tr>
+                <td style="vertical-align: top;">@RenderBody()</td>
+                <td style="vertical-align: top; width: 300px;">
+                    <strong>İlan Arama</strong>
+                    @using (Html.BeginForm("Search", "Home"))
+                    {
+                        <div class="formField">
+                            <label for="Şehir">Şehir</label><br />
+                            <select name="Şehir">
+                                <option value="-1">[ Tüm Şehirler ]</option>
+                                @foreach (var item in _şehirler)
+                                {
+                                    <option value="@item.Id">@item.İsim</option>
+                                }
+                            </select>
+                        </div>
+                        
+                        @Html.Partial("EmlakKategori")
+
+                        <div class="formField">
+                            <label for="Fiyat1">Fiyat Aralığı</label><br />
+                            <input type="text" name="Fiyat1" value="" />-<input type="text" name="Fiyat2" value="" />
+                        </div>
+                        
+                        <div class="formField">
+                            <label for="Tip">Emlak Tipi</label><br />
+                            <select name="Tip">
+                                <option value="-1">[ Tümü ]</option>
+                                @foreach (var item in _tipler)
+                                {
+                                    <option value="@item.Id">@item.Ad</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="formField">
+                            <input type="submit" name="Submit" value="Ara" />
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

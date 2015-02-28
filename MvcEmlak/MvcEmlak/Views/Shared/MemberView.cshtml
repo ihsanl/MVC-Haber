@@ -1,0 +1,10 @@
+﻿@{
+    var _üye = (MvcEmlak.Models.Üye)Session["member"];
+}
+Üye: @_üye.İsim
+|
+@Html.ActionLink("ilanlarım", "Posts", "Member")
+|
+@Html.ActionLink("ayarlar", "Profile", "Member")
+|
+@Html.ActionLink("çıkış", "LogOut", "Member")

@@ -1,0 +1,75 @@
+﻿body {
+    font-size: small;
+    font-family: 'Monda', sans-serif;
+    color: #232323;
+    background-color: #f0f0f0;
+    margin: 0px;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+input[type=text],
+input[type=password] {
+    font-size: small;
+    font-family: 'Monda', sans-serif;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type=submit] {
+    font-size: small;
+    font-family: 'Monda', sans-serif;
+    padding: 2px 6px 2px 6px;
+    border: none;
+    color: #fff;
+    background-color: #643270;
+    border-radius: 3px;
+}
+
+#topPanelWrapper {
+    background-color: #000;
+    border-bottom: 3px solid orange;
+}
+
+#memberPanel {
+    margin: auto;
+    width: 1080px;
+    background-color: maroon;
+    padding: 8px;
+    text-align: right;
+    color: #fff;
+}
+
+    #memberPanel a {
+        color: #f0f0f0;
+        text-decoration: none;
+    }
+
+#topPanel {
+    margin: auto;
+    width: 1080px;
+    background-color: #346;
+    color: dodgerblue;
+    padding: 8px;
+}
+
+#mainPanel {
+    margin: auto;
+    width: 1080px;
+    background-color: #fff;
+    padding: 8px;
+}
+
+.formField {
+    padding: 4px;
+    background-color: #f0f0f0;
+    margin-bottom: 4px;
+}
+
+.searchResultItem {
+    padding: 4px;
+    border-bottom: 1px solid #ccc;
+}

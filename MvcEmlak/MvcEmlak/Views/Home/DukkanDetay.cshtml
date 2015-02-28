@@ -1,0 +1,17 @@
+﻿@using MvcEmlak.Models
+@model Dükkan
+@{
+    ViewBag.Title = "Konut Detay";
+}
+
+<h2>@Model.Başlık</h2>
+<h4>@Model.Tarih.ToLongDateString()</h4>
+<h4><em>@Model.Şehir.İsim</em></h4>
+<blockquote>
+    @Model.Adres
+</blockquote>
+<img src="@Url.Action("GetImage", "Home", new { @Id=Model.Id })" alt="@Model.Başlık" width="640" /><br />
+<p>
+    Depo : @(Model.Depo ? "Var" : "Yok")
+</p>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="174e81a31c244b1c8d22570a4f38a1c8" Name="Diagram1" >
+        <EntityTypeShape EntityType="ModelEmlak.Üye" Width="1.5" PointX="0.625" PointY="0.5" FillColor="0, 64, 64" />
+        <EntityTypeShape EntityType="ModelEmlak.Emlak" Width="1.5" PointX="6" PointY="0.5" FillColor="128, 64, 0" />
+        <EntityTypeShape EntityType="ModelEmlak.Şehir" Width="1.5" PointX="9.25" PointY="0.75" FillColor="64, 0, 0" />
+        <EntityTypeShape EntityType="ModelEmlak.Konut" Width="1.5" PointX="3.75" PointY="4.375" FillColor="Purple" />
+        <InheritanceConnector EntityType="ModelEmlak.Konut" />
+        <EntityTypeShape EntityType="ModelEmlak.Arsa" Width="1.5" PointX="6" PointY="4.375" FillColor="0, 64, 0" />
+        <InheritanceConnector EntityType="ModelEmlak.Arsa" />
+        <EntityTypeShape EntityType="ModelEmlak.Dükkan" Width="1.5" PointX="8.25" PointY="4.375" />
+        <InheritanceConnector EntityType="ModelEmlak.Dükkan" />
+        <AssociationConnector Association="ModelEmlak.ÜyeEmlak" />
+        <AssociationConnector Association="ModelEmlak.ŞehirEmlak" />
+        <EntityTypeShape EntityType="ModelEmlak.Tip" Width="1.5" PointX="3" PointY="2" />
+        <AssociationConnector Association="ModelEmlak.TipEmlak" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

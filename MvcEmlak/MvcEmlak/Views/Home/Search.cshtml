@@ -1,0 +1,25 @@
+﻿@using MvcEmlak.Models
+@model IList<Emlak>
+@{
+    ViewBag.Title = "Arama Sonuçları";
+}
+
+<h2>Arama Sonuçları</h2>
+
+@foreach (var item in Model)
+{
+    <div class="searchResultItem">
+        <table>
+            <tr>
+                <td style="width: 120px;">
+                    <img src="@Url.Action("GetImage", new { @Id=item.Id })" alt="@item.Başlık" width="120" />
+                </td>
+                <td>@Html.ActionLink(item.Başlık, "Detay", new { @Id = item.Id })
+                    <br />
+                    <em>@item.Tarih.ToLongDateString()</em><br />
+                    <span>@item.Şehir.İsim</span></td>
+            </tr>
+        </table>
+
+    </div>
+}

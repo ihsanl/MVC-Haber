@@ -1,0 +1,62 @@
+﻿@using MvcEmlak.Models
+@{
+    ViewBag.Title = "MVC Emlak";
+    var db = new Entities();
+    var _konutlar = db.Emlaklar.OfType<Konut>().Where(p => p.Durum).OrderBy(p=>Guid.NewGuid()).Take(6).ToList();
+    var _dükkanlar = db.Emlaklar.OfType<Dükkan>().Where(p => p.Durum).OrderBy(p=>Guid.NewGuid()).Take(6).ToList();
+    var _arsalar = db.Emlaklar.OfType<Arsa>().Where(p => p.Durum).OrderBy(p=>Guid.NewGuid()).Take(6).ToList();
+    int c = 0;
+}
+
+<h3>Konut İlanları</h3>
+<table>
+    <tr>
+        @foreach (var item in _konutlar)
+        {
+            <td style="width: 240px;">
+                <img src="@Url.Action("GetImage", new { @Id = item.Id })" alt="" width="240" height="180" /><br />
+                @Html.ActionLink(item.Başlık, "Detay", new{ @Id = item.Id, @Kategori = "Konut" })<br />
+                @item.Şehir.İsim
+            </td>
+            @Html.Raw(++c%3==0?"</tr><tr>":"")
+        }
+    </tr>
+</table>
+
+<h3>Dükkan İlanları</h3>
+<table>
+    <tr>
+        @{
+            c=0;
+        }
+        @foreach (var item in _dükkanlar)
+        {
+            <td style="width: 240px;">
+                <img src="@Url.Action("GetImage", new { @Id = item.Id })" alt="" width="240" height="180" /><br />
+                @Html.ActionLink(item.Başlık, "Detay", new{ @Id = item.Id, @Kategori = "Dükkan"})<br />
+                @item.Şehir.İsim
+            </td>
+            @Html.Raw(++c%3==0?"</tr><tr>":"")
+        }
+    </tr>
+</table>
+
+<h3>Arsa İlanları</h3>
+<table>
+    <tr>
+        @{
+            c=0;
+        }
+        @foreach (var item in _arsalar)
+        {
+            <td style="width: 240px;">
+                <img src="@Url.Action("GetImage", new { @Id = item.Id })" alt="" width="240" height="180" /><br />
+                @Html.ActionLink(item.Başlık, "Detay", new{ @Id = item.Id, @Kategori = "Arsa"})<br />
+                @item.Şehir.İsim
+            </td>
+            @Html.Raw(++c%3==0?"</tr><tr>":"")
+        }
+    </tr>
+</table>
+
+

@@ -1,0 +1,8 @@
+﻿.requiredField {
+    position: relative;
+}
+
+.requiredFieldError {
+    border: 1px solid #c00;
+    background-color: #fff6f3;
+}

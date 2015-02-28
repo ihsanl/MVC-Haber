@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "E-Posta Doğrulama";
+}
+
+<h2>E-Posta Doğrulama</h2>
+
+@{
+    if ((bool)ViewData["status"])
+    {
+        <p>
+            Doğrulama işleminiz başarıyla tamamlanmıştır. 
+        </p>
+    }
+    else
+    {
+        <p>
+            Doğrulama işleminiz bir hatadan dolayı tamamlanamamıştır.
+        </p>
+    }
+}
